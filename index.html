@@ -50,9 +50,10 @@ textarea{resize:vertical}
 <div class="container">
   <div class="card" role="main" aria-labelledby="title">
     <div class="brand">
-      <!-- uses repo file 'Spar logo SQUARE.jpg' placed at repo root -->
-      <img src="Spar logo SQUARE.jpg" alt="Heatherpark logo">
+      <!-- IMPORTANT: this references the file in your repo root. If your file name has spaces, use percent-encoding like below -->
+      <img src="Spar%20logo%20SQUARE.jpg" alt="Heatherpark logo">
     </div>
+
     <h1 id="title">HEATHERPARK PIZZA ORDER</h1>
     <div class="lead">Select pizzas, add extras, then send the order to WhatsApp (066 208 1559). Tuesday special: 2 pizzas for R130.</div>
 
@@ -105,35 +106,36 @@ textarea{resize:vertical}
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){
+  // contact and special
   const SHOP_LOCAL = "0662081559";
   const SHOP_WA = "27" + SHOP_LOCAL.replace(/^0/, "");
   const isTuesday = (new Date()).getDay() === 2;
 
+  // menu & extras
   const MENU = [
-    {'id':'focaccia','name':"Focaccia",'desc':"Garlic & Herbs",'price':55},
-    {'id':'margherita','name':"Margherita",'desc':"Cheese & Tomato",'price':60},
-    {'id':'regina','name':"Regina",'desc':"Ham & Mushroom",'price':80},
-    {'id':'hawaiian','name':"Hawaiian",'desc':"Ham & Pineapple",'price':80},
-    {'id':'bacon','name':"Bacon",'desc':"Bacon & Feta",'price':85},
-    {'id':'chicken','name':"Chicken",'desc':"BBQ Chicken & Mushroom",'price':85},
-    {'id':'mexican','name':"Mexican",'desc':"Spicy mince, peppers, onions & chilli",'price':90},
-    {'id':'pepperoni','name':"Pepperoni",'desc':"Italian Salami",'price':80},
-    {'id':'vegetarian','name':"Vegetarian",'desc':"Peppers, mushrooms & olives",'price':80}
+    {id:'focaccia',name:"Focaccia",desc:"Garlic & Herbs",price:55},
+    {id:'margherita',name:"Margherita",desc:"Cheese & Tomato",price:60},
+    {id:'regina',name:"Regina",desc:"Ham & Mushroom",price:80},
+    {id:'hawaiian',name:"Hawaiian",desc:"Ham & Pineapple",price:80},
+    {id:'bacon',name:"Bacon",desc:"Bacon & Feta",price:85},
+    {id:'chicken',name:"Chicken",desc:"BBQ Chicken & Mushroom",price:85},
+    {id:'mexican',name:"Mexican",desc:"Spicy mince, peppers, onions & chilli",price:90},
+    {id:'pepperoni',name:"Pepperoni",desc:"Italian Salami",price:80},
+    {id:'vegetarian',name:"Vegetarian",desc:"Peppers, mushrooms & olives",price:80}
   ];
-
   const EXTRAS = [
-    {'id':'garlic','name':"Garlic",'price':15},
-    {'id':'peppers','name':"Peppers",'price':15},
-    {'id':'mushroom','name':"Mushroom",'price':15},
-    {'id':'pineapple','name':"Pineapple",'price':15},
-    {'id':'onion','name':"Onion",'price':15},
-    {'id':'spinach','name':"Spinach",'price':15},
-    {'id':'ham','name':"Ham",'price':20},
-    {'id':'bacon','name':"Bacon",'price':20},
-    {'id':'salami','name':"Salami",'price':20},
-    {'id':'mince','name':"Mince",'price':20},
-    {'id':'chicken','name':"Chicken",'price':20},
-    {'id':'avo','name':"Avo",'price':25}
+    {id:'garlic',name:"Garlic",price:15},
+    {id:'peppers',name:"Peppers",price:15},
+    {id:'mushroom',name:"Mushroom",price:15},
+    {id:'pineapple',name:"Pineapple",price:15},
+    {id:'onion',name:"Onion",price:15},
+    {id:'spinach',name:"Spinach",price:15},
+    {id:'ham',name:"Ham",price:20},
+    {id:'bacon',name:"Bacon",price:20},
+    {id:'salami',name:"Salami",price:20},
+    {id:'mince',name:"Mince",price:20},
+    {id:'chicken',name:"Chicken",price:20},
+    {id:'avo',name:"Avo",price:25}
   ];
 
   const menuList = document.getElementById('menuList');
@@ -232,6 +234,7 @@ document.addEventListener('DOMContentLoaded', function(){
     updateTotals();
   }
 
+  // initial render
   renderMenu();
 
   function updateTotals(){
