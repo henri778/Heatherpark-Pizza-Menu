@@ -1,0 +1,237 @@
+<!-- Compact header + order card with inline SVG logo (HEATHER PARK above red SUPERSPAR bar),
+     cell number displayed white & bold on the page, and WhatsApp message built WITHOUT
+     customer name or cell (only order details). -->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Heatherpark Pizza Order</title>
+  <style>
+    :root{
+      --bg:#0f0f10;
+      --card:#141414;
+      --muted:#bdbdbd;
+      --accent:#e32020;
+      --white:#ffffff;
+      --radius:12px;
+      --maxW:880px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--white);
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      padding:22px;
+      display:flex;
+      justify-content:center;
+    }
+    .wrap{width:100%;max-width:var(--maxW);}
+
+    /* header */
+    .order-header{ display:flex; gap:18px; align-items:center; margin-bottom:18px; justify-content:space-between; flex-wrap:wrap; }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .brand .inline-logo { display:block; }
+    .brand .inline-logo svg{ height:64px; width:auto; display:block; }
+    .title-block { flex:1; text-align:center; min-width:200px; }
+    .title-block h1{ margin:0; color:var(--accent); font-size:20px; letter-spacing:1px; }
+    .subtitle{ margin:8px 0 0; color:var(--muted); font-size:13px; }
+
+    /* Force phone link white + bold */
+    a.phone-link, a.phone-link:link, a.phone-link:visited, a.phone-link:active {
+      color:var(--white) !important;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    /* compact order card (look and feel like the version before the large page change) */
+    .order-card { background:var(--card); border-radius:10px; padding:16px; box-shadow:0 8px 24px rgba(0,0,0,0.45); margin-top:8px; max-width:760px; }
+    .order-card h2 { color:var(--accent); margin:0 0 8px 0; font-size:18px; }
+    .order-card hr { border:none; border-top:1px solid rgba(255,255,255,0.06); margin:10px 0; }
+    .order-card p, .order-card li { color:var(--white); margin:6px 0; font-size:15px; }
+    .order-card ul { margin:6px 0 12px 18px; color:var(--white); }
+    .thanks { color:var(--muted); margin-top:10px; font-size:13px; }
+
+    /* small controls */
+    .controls { display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+    button, .btn {
+      background:var(--accent); color:var(--white); border:none; padding:10px 12px; border-radius:8px; cursor:pointer; font-weight:700;
+    }
+    .btn.ghost { background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--white); font-weight:600; padding:9px 12px; }
+
+    .preview { background:rgba(255,255,255,0.02); border-radius:8px; padding:10px; margin-top:12px; white-space:pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; color:var(--white); font-size:14px; display:none; }
+
+    /* show the page's customer cell in bold white */
+    .cell-display { color:var(--white); font-weight:700; }
+
+    @media (max-width:720px){
+      .order-header { flex-direction:column; align-items:center; gap:10px; }
+      .brand .inline-logo svg { height:48px; }
+      .title-block { text-align:center; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="order-header" role="banner">
+      <div class="brand" aria-hidden="true">
+        <!-- Inline SVG logo: HEATHER PARK (white) on top, red SUPERSPAR bar underneath -->
+        <div class="inline-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="420" height="80" viewBox="0 0 900 120" role="img" aria-label="Heatherpark Superspar logo - traced">
+            <defs>
+              <style>
+                .hp-text { fill:#ffffff; font-family: 'Oswald', 'Arial Black', sans-serif; font-weight:800; font-size:46px; letter-spacing:2px; }
+                .sup-bar { fill:#e32020; }
+                .sup-text { fill:#ffffff; font-family: 'Arial Black', 'Impact', sans-serif; font-weight:900; font-size:22px; letter-spacing:3px; }
+              </style>
+            </defs>
+
+            <!-- HEATHER PARK (large white text centered near top-left) -->
+            <g transform="translate(10,10)">
+              <text class="hp-text" x="0" y="44">HEATHER PARK</text>
+            </g>
+
+            <!-- red SUPERSPAR bar below HEATHER PARK -->
+            <g transform="translate(12,62)">
+              <rect class="sup-bar" x="0" y="0" rx="6" ry="6" width="300" height="36" />
+              <text class="sup-text" x="14" y="26">SUPERSPAR</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="title-block">
+        <h1>HEATHERPARK PIZZA ORDER</h1>
+        <p class="subtitle">
+          Send order to WhatsApp at
+          <a class="phone-link" id="shop-phone" href="tel:+27662081559">066 208 1559</a>
+        </p>
+      </div>
+    </header>
+
+    <!-- Compact order card (like the original compact version) -->
+    <main class="order-card" role="main" aria-labelledby="order-title">
+      <h2 id="order-title">🧡 HEATHERPARK SUPERSPAR PIZZA ORDER 🧡</h2>
+      <hr>
+
+      <!-- Display the customer's cell on the page in bold white (but this is NOT included in the WhatsApp message) -->
+      <p><strong>Cell:</strong> <span id="cell-display" class="cell-display">073 841 3015</span></p>
+
+      <p><strong>Pickup:</strong> <span id="pickup-display">17:30</span></p>
+
+      <h3>🍕 ORDER:</h3>
+      <ul id="order-items">
+        <li data-item="Hawaiian" data-qty="1" data-extras="Mushroom (R15), Bacon (R20)">• Hawaiian ×1 — Extras: Mushroom (R15), Bacon (R20)</li>
+        <li data-item="Mexican" data-qty="2" data-extras="No extras">• Mexican ×2 — No extras</li>
+      </ul>
+
+      <p><strong>Comments:</strong> <span id="comments-display">Don't burn my pizza</span></p>
+
+      <p><strong>Original Total:</strong> <span id="orig-display">R205</span></p>
+      <p><strong>Total to Pay:</strong> <span id="pay-display">R205</span></p>
+
+      <hr>
+
+      <div class="controls" role="region" aria-label="Order actions">
+        <button id="preview-btn" class="btn ghost" type="button">Preview message</button>
+        <button id="copy-btn" class="btn" type="button">Copy message</button>
+        <button id="send-btn" class="btn" type="button">Send to WhatsApp</button>
+      </div>
+
+      <div id="preview-area" class="preview" aria-live="polite"></div>
+
+      <p class="thanks">Thank you for ordering from Heatherpark Superspar 🍕</p>
+    </main>
+  </div>
+
+  <script>
+    // Shop WA number for sending (use country code)
+    const SHOP_WA_NUM = "27662081559"; // +27 66 208 1559
+
+    // Build the formatted pizza order message like the last version you approved,
+    // BUT without the customer name or cell (user asked to remove those details).
+    function buildOrderMessageNoCustomer() {
+      const pickup = document.getElementById('pickup-display').textContent.trim();
+      const comments = document.getElementById('comments-display').textContent.trim();
+      const orig = document.getElementById('orig-display').textContent.trim();
+      const pay = document.getElementById('pay-display').textContent.trim();
+
+      // Gather items from the DOM (keeps whatever order and extras are shown)
+      const items = [];
+      document.querySelectorAll('#order-items li').forEach(li => {
+        const name = li.getAttribute('data-item') || li.textContent.trim();
+        const qty = li.getAttribute('data-qty') || '';
+        const extras = li.getAttribute('data-extras') || '';
+        let line = `• ${name}`;
+        if(qty) line += ` ×${qty}`;
+        if(extras && extras.toLowerCase() !== 'no extras') line += ` — Extras: ${extras}`;
+        else if(extras && extras.toLowerCase() === 'no extras') line += ` — No extras`;
+        items.push(line);
+      });
+
+      // Compose message exactly like last approved format, excluding customer name/cell
+      const lines = [];
+      lines.push("🧡 HEATHERPARK SUPERSPAR PIZZA ORDER 🧡");
+      lines.push("───────────────────────────────");
+      if(pickup) lines.push("🕠 Pickup: " + pickup);
+      lines.push("");
+      lines.push("🍕 ORDER:");
+      items.forEach(it => lines.push(it));
+      lines.push("");
+      if(comments) lines.push("💬 Comments: " + comments);
+      lines.push("");
+      if(orig) lines.push("💰 Original Total: " + orig);
+      if(pay) lines.push("✅ Total to Pay: " + pay);
+      lines.push("───────────────────────────────");
+      lines.push("Thank you for ordering from Heatherpark Superspar 🍕");
+
+      return lines.join("\n");
+    }
+
+    // Preview button
+    const previewArea = document.getElementById('preview-area');
+    document.getElementById('preview-btn').addEventListener('click', function(){
+      const msg = buildOrderMessageNoCustomer();
+      previewArea.textContent = msg;
+      previewArea.style.display = 'block';
+      // Scroll preview into view on small screens
+      previewArea.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+
+    // Copy message
+    document.getElementById('copy-btn').addEventListener('click', async function(){
+      const msg = buildOrderMessageNoCustomer();
+      try {
+        await navigator.clipboard.writeText(msg);
+        alert("Message copied to clipboard. Paste into WhatsApp or anywhere else.");
+      } catch(e) {
+        // fallback: show preview for manual copy
+        previewArea.textContent = msg;
+        previewArea.style.display = 'block';
+        alert("Clipboard failed — the preview has been shown so you can copy manually.");
+      }
+    });
+
+    // Send to WhatsApp (opens wa.me with encoded text)
+    document.getElementById('send-btn').addEventListener('click', function(){
+      const msg = buildOrderMessageNoCustomer();
+      const encoded = encodeURIComponent(msg);
+      const url = `https://wa.me/${SHOP_WA_NUM}?text=${encoded}`;
+      window.open(url, '_blank');
+    });
+
+    // Make sure the on-page cell number is white and bold (already styled) and format it visually
+    (function formatCellDisplay(){
+      const cellEl = document.getElementById('cell-display');
+      if(!cellEl) return;
+      const digits = cellEl.textContent.replace(/\D/g,'');
+      if(digits.length === 10) {
+        cellEl.textContent = digits.replace(/(\d{3})(\d{3})(\d{4})/,'$1 $2 $3');
+      }
+    })();
+  </script>
+</body>
+</html>
